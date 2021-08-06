@@ -11,7 +11,7 @@ const { selection } = figma.currentPage;
 const localTextStyles = figma.getLocalTextStyles();
 const localPaintStyles = figma.getLocalPaintStyles();
 const localEffectStyles = figma.getLocalEffectStyles();
-selection.length === 0 && figma.notify("Nothing selected 😮");
+selection.length === 0 && figma.closePlugin("Nothing selected 😮");
 selection.forEach((textNode) => __awaiter(this, void 0, void 0, function* () {
     if (textNode.type === "TEXT") {
         yield figma.loadFontAsync(textNode.fontName);
@@ -39,7 +39,6 @@ selection.forEach((textNode) => __awaiter(this, void 0, void 0, function* () {
         makeTextStyle.fontSize =
             textNode.fontSize !== figma.mixed ? textNode.fontSize : null;
         Promise.resolve("Done");
-        figma.notify(localTextStyle ? "Updated your style!" : "Added your styles 😎");
         return;
     }
 }));
@@ -60,7 +59,6 @@ selection.forEach((shapeNode) => __awaiter(this, void 0, void 0, function* () {
         makeColourStyle.name = shapeNode.name;
         makeColourStyle.description = shapeNode.name;
         Promise.resolve("Done");
-        figma.notify(localPaintStyle ? "Updated your style!" : "Added your styles 😎");
         return;
     }
 }));
@@ -80,8 +78,7 @@ selection.forEach((effectNode) => __awaiter(this, void 0, void 0, function* () {
             makeEffectStyle.effects = effectNode.effects;
         }
         Promise.resolve("Done");
-        figma.notify(localEffectStyle ? "Updated your style!" : "Added your styles 😎");
         return;
     }
 }));
-figma.closePlugin();
+figma.closePlugin("Finished  ✔");

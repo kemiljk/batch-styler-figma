@@ -3,7 +3,7 @@ const localTextStyles = figma.getLocalTextStyles();
 const localPaintStyles = figma.getLocalPaintStyles();
 const localEffectStyles = figma.getLocalEffectStyles();
 
-selection.length === 0 && figma.notify("Nothing selected 😮");
+selection.length === 0 && figma.closePlugin("Nothing selected 😮");
 
 selection.forEach(async (textNode): Promise<string> => {
   if (textNode.type === "TEXT") {
@@ -34,9 +34,6 @@ selection.forEach(async (textNode): Promise<string> => {
     makeTextStyle.fontSize =
       textNode.fontSize !== figma.mixed ? textNode.fontSize : null;
     Promise.resolve("Done");
-    figma.notify(
-      localTextStyle ? "Updated your style!" : "Added your styles 😎"
-    );
     return;
   }
 });
@@ -62,9 +59,6 @@ selection.forEach(async (shapeNode): Promise<string> => {
     makeColourStyle.name = shapeNode.name;
     makeColourStyle.description = shapeNode.name;
     Promise.resolve("Done");
-    figma.notify(
-      localPaintStyle ? "Updated your style!" : "Added your styles 😎"
-    );
     return;
   }
 });
@@ -89,11 +83,8 @@ selection.forEach(async (effectNode): Promise<string> => {
       makeEffectStyle.effects = effectNode.effects;
     }
     Promise.resolve("Done");
-    figma.notify(
-      localEffectStyle ? "Updated your style!" : "Added your styles 😎"
-    );
     return;
   }
 });
 
-figma.closePlugin();
+figma.closePlugin("Finished  ✔");
